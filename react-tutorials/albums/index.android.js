@@ -1,0 +1,2 @@
+// ANDROID CODE
+"use strict";
