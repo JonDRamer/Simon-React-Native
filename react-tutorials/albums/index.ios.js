@@ -9,7 +9,7 @@ import Header from './src/components/header';
 // Create a Component
 const App = () =>
    (
-    <Header />
+    <Header /> 
   );
 
 // Render it to the device
