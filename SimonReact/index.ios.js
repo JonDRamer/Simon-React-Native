@@ -1,36 +1,72 @@
 'use-strict';
 
 import React from 'react';
-import { AppRegistry, View, Text } from 'react-native';
+import { AppRegistry, View, Text, TouchableOpacity } from 'react-native';
+
+state = {
+  colors: ["yellow", "blue", "red", "green"],
+  pattern: [],
+  patternCount: 0
+};
+
+function  handlePress(event) {
+  console.log(event.target);
+  console.log(state.colors);
+}
+
+function initializeGame() {
+      state.activeGame = true,
+      state.patternCount = 0,
+      state.streak = 0,
+      state.pattern = [],
+      state.userArray = []
+      updatePattern(state.colors);
+    }
+
+function updatePattern(arr) {
+  let randomColor = arr[Math.floor(Math.random() * arr.length)];
+      state.pattern.push(randomColor);
+      state.patternCount += 1;
+      console.log(state.pattern);
+}
 //Create a Component
-const App = () =>
+const App = ({onPress}) =>
    (
       <View style={styles.container}>
-        <View style={styles.game}>
-          <View style={styles.yellowPad}>
+          <View style={styles.game}>
+              <TouchableOpacity onPress={handlePress} style={styles.yellowPad}>
+                  <View></View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handlePress} style={styles.bluePad}>
+                  <View></View>
+              </TouchableOpacity>
+              <View style={styles.consoleBackground}></View>
+              <View style={styles.console}>
+                  <Text style={styles.consoleHeaderText}>simon</Text>
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={onPress} style={styles.button}>
+                        <View></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={initializeGame}  style={styles.button2}>
+                        <View></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onPress} style={styles.button}>
+                       <View></View>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.settings}>
+                    <Text style={styles.consoleText}>Last</Text>
+                    <Text style={styles.consoleText}>Start</Text>
+                    <Text style={styles.consoleText}>Long</Text>
+                  </View>
+              </View>
+              <TouchableOpacity onPress={handlePress} style={styles.redPad}>
+                  <View></View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handlePress} style={styles.greenPad}>
+                  <View></View>
+              </TouchableOpacity>
           </View>
-          <View style={styles.bluePad}>
-          </View>
-          <View style={styles.consoleBackground}>
-          </View>
-          <View style={styles.console}>
-            <Text style={styles.consoleHeaderText}>simon</Text>
-            <View style={styles.buttonContainer}>
-              <View style={styles.button}></View>
-              <View style={styles.button2}></View>
-              <View style={styles.button}></View>
-            </View>
-            <View style={styles.settings}>
-              <Text style={styles.consoleText}>Last</Text>
-              <Text style={styles.consoleText}>Start</Text>
-              <Text style={styles.consoleText}>Long</Text>
-            </View>
-          </View>
-          <View style={styles.redPad}>
-          </View>
-          <View style={styles.greenPad}>
-          </View>
-        </View>
       </View>
   );
 
