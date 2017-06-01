@@ -4,14 +4,16 @@ import React from 'react';
 import { AppRegistry, View, Text, TouchableOpacity } from 'react-native';
 
 state = {
-  colors: ["yellow", "blue", "red", "green"],
   pattern: [],
   patternCount: 0
 };
 
-function  handlePress(event) {
-  console.log(event.target);
-  console.log(state.colors);
+let colors = ["yellow", "blue", "red", "green"];
+
+function handlePress(pad) {
+  // console.log(event.target);
+  console.log(colors);
+  console.log(state[pad]);
 }
 
 function initializeGame() {
@@ -20,7 +22,7 @@ function initializeGame() {
       state.streak = 0,
       state.pattern = [],
       state.userArray = []
-      updatePattern(state.colors);
+      updatePattern(colors);
     }
 
 function updatePattern(arr) {
@@ -28,13 +30,41 @@ function updatePattern(arr) {
       state.pattern.push(randomColor);
       state.patternCount += 1;
       console.log(state.pattern);
+      // displayPattern(state.pattern);
 }
+
+function displayPattern(arr) {
+      let i = 0;
+      myLoop();
+
+      function myLoop() {
+        setTimeout(() => {
+          let currentColor = arr[i];
+          let currentColorRef = currentColor[0].id;
+          $(currentColor)
+            .toggleClass(`${currentColorId}Glow`);
+          setTimeout(() => {
+            $(currentColor)
+              .removeClass(`${currentColorId}Glow`);
+          }, 500);
+          i += 1;
+          if (i < arr.length) {
+            myLoop();
+          }
+        }, 750);
+      }
+    }
+
+
 //Create a Component
 const App = ({onPress}) =>
    (
       <View style={styles.container}>
           <View style={styles.game}>
-              <TouchableOpacity onPress={handlePress} style={styles.yellowPad}>
+              <TouchableOpacity
+              ref={(yellowPad) => { this.state.yellowPad = yellowPad; }}
+              onPress={() => handlePress("yellowPad")}
+              style={styles.yellowPad}>
                   <View></View>
               </TouchableOpacity>
               <TouchableOpacity onPress={handlePress} style={styles.bluePad}>
