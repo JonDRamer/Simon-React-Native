@@ -11,9 +11,7 @@ state = {
 let colors = ["yellow", "blue", "red", "green"];
 
 function handlePress(pad) {
-  // console.log(event.target);
-  console.log(colors);
-  console.log(state[pad]);
+  console.log(state[pad].props.name);
 }
 
 function initializeGame() {
@@ -61,13 +59,10 @@ const App = ({onPress}) =>
    (
       <View style={styles.container}>
           <View style={styles.game}>
-              <TouchableOpacity
-              ref={(yellowPad) => { this.state.yellowPad = yellowPad; }}
-              onPress={() => handlePress("yellowPad")}
-              style={styles.yellowPad}>
+              <TouchableOpacity name="yellowPad" ref={(yellowPad) => { this.state.yellowPad = yellowPad; }} onPress={() => handlePress("yellowPad")} style={styles.yellowPad}>
                   <View></View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handlePress} style={styles.bluePad}>
+              <TouchableOpacity name="bluePad" ref={(bluePad) => { this.state.bluePad = bluePad; }} onPress={() => handlePress("bluePad")} style={styles.bluePad}>
                   <View></View>
               </TouchableOpacity>
               <View style={styles.consoleBackground}></View>
@@ -90,10 +85,10 @@ const App = ({onPress}) =>
                     <Text style={styles.consoleText}>Long</Text>
                   </View>
               </View>
-              <TouchableOpacity onPress={handlePress} style={styles.redPad}>
+              <TouchableOpacity name="redPad" ref={(redPad) => { this.state.redPad = redPad; }} onPress={() => handlePress("redPad")} style={styles.redPad}>
                   <View></View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handlePress} style={styles.greenPad}>
+              <TouchableOpacity name="greenPad" ref={(greenPad) => { this.state.greenPad = greenPad; }} onPress={() => handlePress("greenPad")} style={styles.greenPad}>
                   <View></View>
               </TouchableOpacity>
           </View>
