@@ -26,6 +26,7 @@ function updatePattern(arr) {
       state.pattern.push(randomColor);
       state.patternCount += 1;
       displayPattern(state.pattern);
+      console.log("Game Pattern", state.pattern);
 }
 
 function displayPattern(arr) {
@@ -37,7 +38,6 @@ function displayPattern(arr) {
           let originalBackgroundColor = state[state.pattern[i]].props.style.backgroundColor;
           state[state.pattern[i]].setNativeProps({backgroundColor: '#000000'})
           setTimeout(() => {
-            console.log("Pattern: ", state.pattern);
             state[state.pattern[i]].setNativeProps({backgroundColor: originalBackgroundColor})
             i += 1;
             if (i < arr.length) {
@@ -50,9 +50,7 @@ function displayPattern(arr) {
 
 function handlePress(pad) {
   updateUserArray(pad);
-  if (state.pattern.length === state.userArray.length) {
     checkArrays(state.pattern);
-  }
 }
 
 function updateUserArray(pad) {
@@ -62,20 +60,15 @@ function updateUserArray(pad) {
 }
 
 function checkArrays(arr) {
-  if (state.pattern.length === state.userArray.length) {
-    for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < state.userArray.length; i++) {
       if (arr[i] !== state.userArray[i]) {
-        state.matching = false;
+        state.activeGame = false;
         console.log("You Lose");
       }
-    } if (!state.matching) {
-      console.log("You Lose");
-      state.activeGame = false;
-    } else {
-      updatePattern(colors);
-      displayPattern(state.pattern);
-      state.userArray = [];
-    }
+  } if (arr.length === state.userArray.length && state.matching) {
+    updatePattern(colors);
+    displayPattern(state.pattern);
+    state.userArray = [];
   }
 }
 
