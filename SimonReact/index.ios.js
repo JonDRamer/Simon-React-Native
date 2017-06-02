@@ -5,13 +5,12 @@ import { AppRegistry, View, Text, TouchableOpacity } from 'react-native';
 
 state = {
   pattern: [],
-  patternCount: 0
+  patternCount: 0,
+  matching: true,
+  activeGame: false
 };
 
 let colors = ["yellowPad", "bluePad", "redPad", "greenPad"];
-function handlePress(pad) {
-
-}
 
 function initializeGame() {
       state.activeGame = true,
@@ -35,19 +34,50 @@ function displayPattern(arr) {
 
       function myLoop() {
         setTimeout(() => {
-          console.log(state.pattern, i);
-          state[colors[i]].setNativeProps({backgroundColor: '#000000'})
+          let originalBackgroundColor = state[state.pattern[i]].props.style.backgroundColor;
+          state[state.pattern[i]].setNativeProps({backgroundColor: '#000000'})
           setTimeout(() => {
-            console.log(state.pattern, i);
-            state[colors[i]].setNativeProps({backgroundColor: '#f4f401'})
+            console.log("Pattern: ", state.pattern);
+            state[state.pattern[i]].setNativeProps({backgroundColor: originalBackgroundColor})
             i += 1;
             if (i < arr.length) {
               myLoop();
             }
           }, 500)
-        }, 300);
+        }, 600);
       }
     }
+
+function handlePress(pad) {
+  updateUserArray(pad);
+  if (state.pattern.length === state.userArray.length) {
+    checkArrays(state.pattern);
+  }
+}
+
+function updateUserArray(pad) {
+  let currentGuess = state[pad].props.name;
+  state.userArray.push(currentGuess);
+  console.log("User Array:", state.userArray);
+}
+
+function checkArrays(arr) {
+  if (state.pattern.length === state.userArray.length) {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] !== state.userArray[i]) {
+        state.matching = false;
+        console.log("You Lose");
+      }
+    } if (!state.matching) {
+      console.log("You Lose");
+      state.activeGame = false;
+    } else {
+      updatePattern(colors);
+      displayPattern(state.pattern);
+      state.userArray = [];
+    }
+  }
+}
 
 
 //Create a Component
