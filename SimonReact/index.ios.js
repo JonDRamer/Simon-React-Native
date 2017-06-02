@@ -8,10 +8,9 @@ state = {
   patternCount: 0
 };
 
-let colors = ["yellow", "blue", "red", "green"];
-
+let colors = ["yellowPad", "bluePad", "redPad", "greenPad"];
 function handlePress(pad) {
-  console.log(state[pad].props.name);
+
 }
 
 function initializeGame() {
@@ -27,8 +26,7 @@ function updatePattern(arr) {
   let randomColor = arr[Math.floor(Math.random() * arr.length)];
       state.pattern.push(randomColor);
       state.patternCount += 1;
-      console.log(state.pattern);
-      // displayPattern(state.pattern);
+      displayPattern(state.pattern);
 }
 
 function displayPattern(arr) {
@@ -37,19 +35,17 @@ function displayPattern(arr) {
 
       function myLoop() {
         setTimeout(() => {
-          let currentColor = arr[i];
-          let currentColorRef = currentColor[0].id;
-          $(currentColor)
-            .toggleClass(`${currentColorId}Glow`);
+          console.log(state.pattern, i);
+          state[colors[i]].setNativeProps({backgroundColor: '#000000'})
           setTimeout(() => {
-            $(currentColor)
-              .removeClass(`${currentColorId}Glow`);
-          }, 500);
-          i += 1;
-          if (i < arr.length) {
-            myLoop();
-          }
-        }, 750);
+            console.log(state.pattern, i);
+            state[colors[i]].setNativeProps({backgroundColor: '#f4f401'})
+            i += 1;
+            if (i < arr.length) {
+              myLoop();
+            }
+          }, 500)
+        }, 300);
       }
     }
 
@@ -127,7 +123,8 @@ const App = ({onPress}) =>
         height: 1
       },
       shadowColor: '#bfbfbf',
-      shadowOpacity: 1
+      shadowOpacity: 1,
+      opacity: 1.0
     },
     bluePad: {
       height: 150,
