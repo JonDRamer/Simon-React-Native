@@ -7,7 +7,8 @@ state = {
   pattern: [],
   patternCount: 0,
   matching: true,
-  activeGame: false
+  activeGame: false,
+  longest: []
 };
 
 let colors = ["yellowPad", "bluePad", "redPad", "greenPad"];
@@ -68,6 +69,7 @@ function checkArrays(arr) {
   } if (arr.length === state.userArray.length && state.matching) {
     updatePattern(colors);
     displayPattern(state.pattern);
+    state.longest = state.userArray;
     state.userArray = [];
   }
 }
