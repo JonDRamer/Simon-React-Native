@@ -64,13 +64,16 @@ function checkArrays(arr) {
   for (let i = 0; i < state.userArray.length; i++) {
       if (arr[i] !== state.userArray[i]) {
         state.activeGame = false;
+        state.last = state.userArray;
         console.log("You Lose");
+        console.log("Last: ", state.last);
       }
   } if (arr.length === state.userArray.length && state.matching) {
     updatePattern(colors);
     displayPattern(state.pattern);
     state.longest = state.userArray;
     state.userArray = [];
+    console.log("Longest: ", sate.longest);
   }
 }
 
