@@ -64,7 +64,7 @@ function checkArrays(arr) {
   for (let i = 0; i < state.userArray.length; i++) {
       if (arr[i] !== state.userArray[i]) {
         state.activeGame = false;
-        state.last = state.userArray;
+        state.last = state.pattern;
         console.log("You Lose");
         console.log("Last: ", state.last);
       }
@@ -73,7 +73,7 @@ function checkArrays(arr) {
     displayPattern(state.pattern);
     state.longest = state.userArray;
     state.userArray = [];
-    console.log("Longest: ", sate.longest);
+    console.log("Longest: ", state.longest);
   }
 }
 
